@@ -1,0 +1,43 @@
+
+New Individual Project
+Documentation Feedback ~ Deliverable #4
+Software Design Document ~ Detailed Design
+CMSI 4072 Spring 2025
+==========================================
+
+DETAILED CSC AND CSU DESCRIPTIONS:
+   Excellent job on this section ~ nothing to add here.
+
+DETAILED CLASS DESCRIPTIONS:
+   Excellent job on this section ~ nothing to add here.
+
+DETAILED INTERFACE DESCRIPTIONS:
+   Excellent job on this section ~ nothing to add here.
+
+DETAILED DATA STRUCTURE DESCRIPTIONS:
+   Excellent job on this section ~ nothing to add here.
+
+DETAILED DESIGN DIAGRAMS:
+   These are the same diagrams that you had in the architectural document.
+   You have no added detailed diagrams for this section, but the ones you do
+   have a pretty explanatory.
+
+DATABASE DESIGN AND DESCRIPTION:
+   Not bad for this section but see if you can add an Entity-Relationship
+   diagram of some kind to show how the database is actually laid out.
+
+----------------------------------------------
+OVERALL ASSESSMENT:
+   Category                          Points
+   CSC/CSU Descriptions:                2 of  2
+   Class Descriptions:                  3 of  3
+   Interface Descriptions:              3 of  3
+   Data structure Descriptions:         1 of  1
+   Design diagrams:                     3 of  4
+   Database design/descriptions:        1 of  2
+                                     ===========
+   Subtotal                            13 of 15
+   ------------------------------------------------------
+   Total Percentage:  13/15 = 86.67% which is a B on this deliverable
+
+
