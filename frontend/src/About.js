@@ -38,13 +38,15 @@ const About = () => {
         <h1>How does FRN work at LMU?</h1>
         <div className="volunteer-content">
         <div className="info-text">
-        <p>
-        At LMU, a couple of student volunteers pick up food from the Lair every Sunday 
-        morning around 8:00 a.m. Then, they drive to St. Joseph’s Center in Venice, 
-        where the recovered food is delivered. St. Joseph’s Center works to provide working poor 
-        families and unhoused individuals with the resources and tools to become productive, stable, 
-        and self-supporting members of the community.
-        </p>
+          <ul>
+            <li>Student volunteers pick up food from the Lair every Sunday 
+                morning around 8:00 a.m.</li>
+            <li>They then drive to St. Joseph’s Center in Venice, 
+                where the recovered food is delivered.</li>
+            <li>St. Joseph’s Center works to provide working poor 
+                families and unhoused individuals with the resources and tools to become productive, stable, 
+                and self-supporting members of the community.</li>
+          </ul>
         <button
           className="involvement-btn"
           onClick={() => window.location.href = '/involvement'}

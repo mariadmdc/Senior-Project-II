@@ -1,38 +1,35 @@
 import React, { useState } from "react";
-import { db } from "./firebase"; // adjust the path to your firebase config
-import { collection, addDoc } from "firebase/firestore";
+// import { db } from "./firebase";
+// import { collection, addDoc } from "firebase/firestore";
 import "./Tracker.css";
 
 const FoodTracker = () => {
   const [pickupDate, setPickupDate] = useState("");
   const [entries, setEntries] = useState([{ food: "", quantity: "" }]);
+  const [isSaved, setIsSaved] = useState(false);
 
-  // Add new input fields when "+ Add another" is clicked
   const handleAddAnother = () => {
     setEntries([...entries, { food: "", quantity: "" }]);
   };
 
-  // Handle saving the data to Firebase
   const handleSave = async () => {
-    console.log("save button clicked")
     try {
-      // Save the data to Firestore
-      await addDoc(collection(db, "foodEntries"), {
-        pickupDate,
-        entries,
-        timestamp: new Date(),
-      });
+      // Temporarily disable Firestore while testing UI behavior
+      // await addDoc(collection(db, "foodEntries"), {
+      //   pickupDate,
+      //   entries,
+      //   timestamp: new Date(),
+      // });
 
-      alert("Data saved to Firebase!");
-      setPickupDate("");
-      setEntries([{ food: "", quantity: "" }]); // Reset the form after saving
+      setEntries([{ food: "", quantity: "" }]);
+      setIsSaved(true);
+      setTimeout(() => setIsSaved(false), 2000);
     } catch (error) {
       console.error("Error saving data:", error);
       alert("There was an error saving your entry.");
     }
   };
 
-  // Handle change in input fields for food and quantity
   const handleInputChange = (index, e) => {
     const { name, value } = e.target;
     const newEntries = [...entries];
@@ -73,8 +70,8 @@ const FoodTracker = () => {
             </div>
           ))}
         </div>
-        <button className="save-button" onClick={handleSave}>
-          Save
+        <button className="tracker-btn" onClick={handleSave} disabled={isSaved}>
+          {isSaved ? "✓ Saved" : "Save"}
         </button>
         <button className="add-button" onClick={handleAddAnother}>
           + Add another

@@ -22,8 +22,6 @@
     max-width: 500px;
 }
 
-
-
 .tracker-input {
     width: 180px;
     padding: 10px;
@@ -45,7 +43,7 @@
     margin-right: 20px;
 }
 
-.add-button:hover, .save-button:hover {
+.add-button:hover, .tracker-btn:hover {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -54,3 +52,21 @@
     border-color: #4CAF50;
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
   }
+
+  .tracker-btn {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+    margin-right: 15px;
+  }
+  
+  .tracker-btn:disabled {
+    background-color: #9bc8a7;
+    cursor: default;
+  }
+  
