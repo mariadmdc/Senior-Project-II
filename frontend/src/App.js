@@ -1,27 +1,29 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet, Link, useNavigate } from "react-router-dom";
 import "./App.css";
 import LogIn from "./LogIn.js";
 import SignUp from "./SignUp.js";
 import Tracker from "./Tracker.js";
-import GetInvolved from "./GetInvolved.js";
-import About from "./About.js";
-import Schedule from "./Schedule.js";
 
 function Home() {
   return (
     <>
+      <Navbar />
       <div className="App">
         <div className="overlay"></div>
         <div className="content-box">
           <Header />
         </div>
       </div>
-      <div className="home-banner">
-        <p>
-          22.9 million pounds recovered. 19 million meals donated. 7419.5 metric tons of CO2e prevented. 
-        </p>
-      </div>
+    </>
+  );
+}
+
+function About() {
+  return (
+    <>
+      <Navbar />
+      <div className="page-content"><h2>About the Food Recovery Network</h2></div>
     </>
   );
 }
@@ -29,7 +31,8 @@ function Home() {
 function ScheduleMap() {
   return (
     <>
-      <Schedule/>
+      <Navbar />
+      <div className="page-content"><h2>Schedule and Map</h2></div>
     </>
   );
 }
@@ -37,14 +40,17 @@ function ScheduleMap() {
 function FoodTracker() {
   return (
     <>
+      <Navbar />
       <Tracker />
     </>
   );
 }
-function Involvement() {
+
+function GetInvolved() {
   return (
     <>
-      <GetInvolved />
+      <Navbar />
+      <div className="page-content"><h2>How to Get Involved</h2></div>
     </>
   );
 }
@@ -57,7 +63,7 @@ function Navbar() {
         <li><Link to="/about">About</Link></li>
         <li><Link to="/schedule-map">Schedule/Map</Link></li>
         <li><Link to="/food-tracker">Food Tracker</Link></li>
-        <li><Link to="/involvement">Get Involved</Link></li>
+        <li><Link to="/get-involved">Get Involved</Link></li>
       </ul>
     </nav>
   );
@@ -81,15 +87,14 @@ function Header() {
 function App() {
   return (
     <BrowserRouter>
-    <Navbar/>
       <Routes>
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/schedule-map" element={<Schedule />} />
+        <Route path="/schedule-map" element={<ScheduleMap />} />
         <Route path="/food-tracker" element={<FoodTracker />} />
-        <Route path="/involvement" element={<Involvement />} />
+        <Route path="/get-involved" element={<GetInvolved />} />
       </Routes>
     </BrowserRouter>
   );
