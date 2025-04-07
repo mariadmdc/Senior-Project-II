@@ -14,12 +14,12 @@ h2 {
   position: relative;
   text-align: center;
   height: 100vh;
-  background: url('veggies.jpeg') no-repeat center center/cover;
+  width: 100vw;
   display: flex;
+  background: url('veggies.jpeg') no-repeat center center/cover;
   justify-content: center; 
   align-items: center;
-  flex-direction: column; 
-  margin-top: 100px;
+  box-sizing: border-box;
 }
 
 .overlay {
@@ -114,9 +114,28 @@ h2 {
 body, html {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: 'Anton', sans-serif;
   background-color: #282c34;
   color: white;
 }
 
+.home-banner {
+  background-color: #08AD5E; 
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+}
 
+.home-banner p {
+  margin: 0;
+  font-weight: bold;
+  color: white;
+}
