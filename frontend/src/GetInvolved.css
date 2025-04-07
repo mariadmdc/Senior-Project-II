@@ -1,0 +1,119 @@
+body {
+  background-color: #28a745;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.get-involved-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  
+  .get-involved-h1, .support-h2, .signup-h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .info-section, .donate-section, .volunteer-section {
+    margin-bottom: 30px;
+    width: 100%;
+  }
+  
+  p {
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  h2 {
+    text-align: center;
+  }
+  
+  .donate-btn {
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+    padding: 12px 24px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .donate-btn:hover {
+    background-color: #218838;
+  }
+  
+  .volunteer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 500px; 
+    margin: 0 auto;
+  }
+  
+  .volunteer-form input {
+    margin-bottom: 10px;
+    padding: 0.75rem;
+    width: 90%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+
+  .volunteer-section {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2rem;
+  }
+  
+  .submit-btn {
+    padding: 10px 20px;
+    width: 95%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-btn:hover {
+    background-color: #218838;
+  }
+  
