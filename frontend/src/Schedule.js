@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './Schedule.css';
-import frnRoute from './frnroute.jpeg';
 
 const Schedule = () => {
     const [signedUp, setSignedUp] = useState({
@@ -26,6 +25,45 @@ const Schedule = () => {
         }));
     };
 
+    useEffect(() => {
+        const initMap = () => {
+            const map = new window.google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: { lat: 33.9707, lng: -118.4182 }, 
+            });
+
+            const directionsService = new window.google.maps.DirectionsService();
+            const directionsRenderer = new window.google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+
+            directionsService.route(
+                {
+                    origin: "LMU Lair, Los Angeles, CA",
+                    destination: "St. Joseph's Center, Venice, CA",
+                    travelMode: window.google.maps.TravelMode.DRIVING,
+                },
+                (response, status) => {
+                    if (status === "OK") {
+                        directionsRenderer.setDirections(response);
+                    } else {
+                        alert("Directions request failed due to " + status);
+                    }
+                }
+            );
+        };
+        
+        if (!window.google) {
+            const script = document.createElement("script");
+            script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
+            script.async = true;
+            script.defer = true;
+            window.initMap = initMap;
+            document.head.appendChild(script);
+        } else {
+            initMap();
+        }
+    }, []);
+
     return (
         <div className="schedule-page">
             <h2 className="schedule-title">Volunteer Schedule</h2>
@@ -40,98 +78,34 @@ const Schedule = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Sunday, April 6, 2025</td>
-                        <td>8:00 AM</td>
-                        <td> LMU Lair &rarr; St. Joseph's Center </td>
-                        <td>
-                            <button
-                                className="signup-btn"
-                                onClick={() => handleSignUp('april6')}
-                                disabled={signedUp.april6}
-                            >
-                                {signedUp.april6 ? '✓ Signed Up' : 'Sign Up'}
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Sunday, April 13, 2025</td>
-                        <td>8:00 AM</td>
-                        <td> LMU Lair &rarr; St. Joseph's Center </td>
-                        <td>
-                            <button
-                                className="signup-btn"
-                                onClick={() => handleSignUp('april13')}
-                                disabled={signedUp.april13}
-                            >
-                                {signedUp.april13 ? '✓ Signed Up' : 'Sign Up'}
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Sunday, April 20, 2025</td>
-                        <td>8:00 AM</td>
-                        <td> LMU Lair &rarr; St. Joseph's Center </td>
-                        <td>
-                            <button
-                                className="signup-btn"
-                                onClick={() => handleSignUp('april20')}
-                                disabled={signedUp.april20}
-                            >
-                                {signedUp.april20 ? '✓ Signed Up' : 'Sign Up'}
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Sunday, April 27, 2025</td>
-                        <td>8:00 AM</td>
-                        <td> LMU Lair &rarr; St. Joseph's Center </td>
-                        <td>
-                            <button
-                                className="signup-btn"
-                                onClick={() => handleSignUp('april27')}
-                                disabled={signedUp.april27}
-                            >
-                                {signedUp.april27 ? '✓ Signed Up' : 'Sign Up'}
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Sunday, May 4, 2025</td>
-                        <td>8:00 AM</td>
-                        <td> LMU Lair &rarr; St. Joseph's Center </td>
-                        <td>
-                            <button
-                                className="signup-btn"
-                                onClick={() => handleSignUp('may4')}
-                                disabled={signedUp.may4}
-                            >
-                                {signedUp.may4 ? '✓ Signed Up' : 'Sign Up'}
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Sunday, May 11, 2025</td>
-                        <td>8:00 AM</td>
-                        <td> LMU Lair &rarr; St. Joseph's Center </td>
-                        <td>
-                            <button
-                                className="signup-btn"
-                                onClick={() => handleSignUp('may11')}
-                                disabled={signedUp.may11}
-                            >
-                                {signedUp.may11 ? '✓ Signed Up' : 'Sign Up'}
-                            </button>
-                        </td>
-                    </tr>
+                    {[
+                        { date: 'april6', label: 'Sunday, April 6, 2025' },
+                        { date: 'april13', label: 'Sunday, April 13, 2025' },
+                        { date: 'april20', label: 'Sunday, April 20, 2025' },
+                        { date: 'april27', label: 'Sunday, April 27, 2025' },
+                        { date: 'may4', label: 'Sunday, May 4, 2025' },
+                        { date: 'may11', label: 'Sunday, May 11, 2025' },
+                    ].map(({ date, label }) => (
+                        <tr key={date}>
+                            <td>{label}</td>
+                            <td>8:00 AM</td>
+                            <td>LMU Lair &rarr; St. Joseph's Center</td>
+                            <td>
+                                <button
+                                    className="signup-btn"
+                                    onClick={() => handleSignUp(date)}
+                                    disabled={signedUp[date]}
+                                >
+                                    {signedUp[date] ? '✓ Signed Up' : 'Sign Up'}
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
-            <h1 className="route-title"> Route </h1>
-            <img
-            src={frnRoute}
-            alt="delivery route"
-            className="map-image"
-          />
+
+            <h1 className="route-title">Route</h1>
+            <div id="map" style={{ height: "500px", width: "100%", borderRadius: "12px", marginTop: "20px" }}></div>
         </div>
     );
 };
