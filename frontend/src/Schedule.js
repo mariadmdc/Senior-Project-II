@@ -3,8 +3,6 @@ import './Schedule.css';
 
 const Schedule = () => {
     const [signedUp, setSignedUp] = useState({
-        april6: false,
-        april13: false,
         april20: false,
         april27: false,
         may4: false,
@@ -18,18 +16,41 @@ const Schedule = () => {
         };
     }, []);
 
-    const handleSignUp = (date) => {
-        setSignedUp((prevState) => ({
-            ...prevState,
-            [date]: true
-        }));
+    const handleSignUp = async (date) => {
+        const phoneNumber = prompt("Enter your phone number to receive a confirmation text:");
+
+        if (!phoneNumber) {
+            alert("Phone number is required to complete sign up.");
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:5000/send-confirmation', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ phoneNumber, date })
+            });
+
+            if (response.ok) {
+                setSignedUp((prevState) => ({
+                    ...prevState,
+                    [date]: true
+                }));
+                alert('Thanks for signing up! You’ll get a confirmation text shortly.');
+            } else {
+                alert('Signup worked, but there was an issue sending the confirmation text.');
+            }
+        } catch (error) {
+            console.error('Error sending text:', error);
+            alert('There was an error sending your confirmation text.');
+        }
     };
 
     useEffect(() => {
         const initMap = () => {
             const map = new window.google.maps.Map(document.getElementById("map"), {
                 zoom: 12,
-                center: { lat: 33.9707, lng: -118.4182 }, 
+                center: { lat: 33.9707, lng: -118.4182 },
             });
 
             const directionsService = new window.google.maps.DirectionsService();
@@ -51,7 +72,7 @@ const Schedule = () => {
                 }
             );
         };
-        
+
         if (!window.google) {
             const script = document.createElement("script");
             script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
@@ -79,8 +100,6 @@ const Schedule = () => {
                 </thead>
                 <tbody>
                     {[
-                        { date: 'april6', label: 'Sunday, April 6, 2025' },
-                        { date: 'april13', label: 'Sunday, April 13, 2025' },
                         { date: 'april20', label: 'Sunday, April 20, 2025' },
                         { date: 'april27', label: 'Sunday, April 27, 2025' },
                         { date: 'may4', label: 'Sunday, May 4, 2025' },
@@ -105,7 +124,15 @@ const Schedule = () => {
             </table>
 
             <h1 className="route-title">Route</h1>
-            <div id="map" style={{ height: "500px", width: "100%", borderRadius: "12px", marginTop: "20px" }}></div>
+            <div
+                id="map"
+                style={{
+                    height: "500px",
+                    width: "100%",
+                    borderRadius: "12px",
+                    marginTop: "20px"
+                }}
+            ></div>
         </div>
     );
 };
