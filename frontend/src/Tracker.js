@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-// import { db } from "./firebase";
-// import { collection, addDoc } from "firebase/firestore";
+import { db } from "./firebase";
+import { collection, addDoc } from "firebase/firestore";
 import "./Tracker.css";
 
 const FoodTracker = () => {
@@ -14,21 +14,21 @@ const FoodTracker = () => {
 
   const handleSave = async () => {
     try {
-      // Temporarily disable Firestore while testing UI behavior
-      // await addDoc(collection(db, "foodEntries"), {
-      //   pickupDate,
-      //   entries,
-      //   timestamp: new Date(),
-      // });
-
+      await addDoc(collection(db, "foodEntries"), {
+        pickupDate,
+        entries,
+        timestamp: new Date(),
+      });
+  
       setEntries([{ food: "", quantity: "" }]);
+      setPickupDate(""); 
       setIsSaved(true);
       setTimeout(() => setIsSaved(false), 2000);
     } catch (error) {
       console.error("Error saving data:", error);
       alert("There was an error saving your entry.");
     }
-  };
+  };  
 
   const handleInputChange = (index, e) => {
     const { name, value } = e.target;

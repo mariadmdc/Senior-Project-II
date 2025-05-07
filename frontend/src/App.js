@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import "./App.css";
 import LogIn from "./LogIn.js";
@@ -7,14 +7,16 @@ import Tracker from "./Tracker.js";
 import GetInvolved from "./GetInvolved.js";
 import About from "./About.js";
 import Schedule from "./Schedule.js";
+import { auth } from "./firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
-function Home() {
+function Home({ user }) {
   return (
     <>
       <div className="App">
         <div className="overlay"></div>
         <div className="content-box">
-          <Header />
+          <Header user={user} />
         </div>
       </div>
       <div className="home-banner">
@@ -29,7 +31,7 @@ function Home() {
 function ScheduleMap() {
   return (
     <>
-      <Schedule/>
+      <Schedule />
     </>
   );
 }
@@ -41,6 +43,7 @@ function FoodTracker() {
     </>
   );
 }
+
 function Involvement() {
   return (
     <>
@@ -63,7 +66,7 @@ function Navbar() {
   );
 }
 
-function Header() {
+function Header({ user }) {
   const navigate = useNavigate(); 
 
   return (
@@ -71,23 +74,39 @@ function Header() {
       <h1>Food Recovery Network</h1>
       <h2>LMU Chapter</h2>
       <div className="button-container">
-        <button className="auth-button" onClick={() => navigate("/login")}>Log In</button>
-        <button className="auth-button" onClick={() => navigate("/signup")}>Sign Up</button>
+        {!user ? (
+          <>
+            <button className="auth-button" onClick={() => navigate("/login")}>Log In</button>
+            <button className="auth-button" onClick={() => navigate("/signup")}>Sign Up</button>
+          </>
+        ) : (
+          <button className="auth-button" onClick={() => signOut(auth)}>Log Out</button>
+        )}
       </div>
     </header>
   );
 }
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <BrowserRouter>
-    <Navbar/>
+      <Navbar />
       <Routes>
+        <Route path="/" element={<Home user={user} />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/schedule-map" element={<Schedule />} />
+        <Route path="/schedule-map" element={<ScheduleMap />} />
         <Route path="/food-tracker" element={<FoodTracker />} />
         <Route path="/involvement" element={<Involvement />} />
       </Routes>
