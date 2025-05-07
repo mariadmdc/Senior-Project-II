@@ -7,14 +7,14 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // hook for navigation
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       console.log("Account Created");
-      navigate("/"); // redirect to home page
+      navigate("/"); 
     } catch (err) {
       console.log(err);
     }
